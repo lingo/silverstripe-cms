@@ -405,7 +405,17 @@ class MemberTableField extends ComplexTableField {
 		} else {
 			$limitClause = "0, {$this->pageSize}";
 		}
-				
+
+		if(!empty($_REQUEST['ctf'][$this->Name()]['sort'])) {
+			$column = $_REQUEST['ctf'][$this->Name()]['sort'];
+			$dir = 'ASC';
+			if(!empty($_REQUEST['ctf'][$this->Name()]['dir'])) {
+				$dir = $_REQUEST['ctf'][$this->Name()]['dir'];
+				if(strtoupper(trim($dir)) == 'DESC') $dir = 'DESC';
+			}
+			$this->sourceSort = $column .' '. $dir;
+		}
+
 		// We use the group to get the members, as they already have the bulk of the look up functions
 		$start = isset($_REQUEST['ctf'][$this->Name()]['start']) ? $_REQUEST['ctf'][$this->Name()]['start'] : 0; 
 		

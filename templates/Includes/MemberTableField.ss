@@ -12,7 +12,25 @@
 				<tr>
 					<% if Markable %><th width="18">&nbsp;</th><% end_if %>
 					<% control Headings %>
-					<th class="$Name">$Title</th>
+					<th class="$Name">
+						<% if IsSortable %>
+							<span class="sortTitle">
+								<a href="$SortLink">$Title</a>
+							</span>
+							<span class="sortLink <% if SortBy %><% else %>sortLinkHidden<% end_if %>">
+								<a href="$SortLink">
+									<% if SortDirection = desc %>
+									<img src="cms/images/bullet_arrow_up.png" alt="<% _t('SORTASC', 'Sort ascending') %>" />
+									<% else %>
+									<img src="cms/images/bullet_arrow_down.png" alt="<% _t('SORTDESC', 'Sort descending') %>" />
+									<% end_if %>
+								</a>
+								&nbsp;
+							</span>
+						<% else %>
+							$Title
+						<% end_if %>
+					</th>
 					<% end_control %>
 					<% if Can(show) %><th width="18">&nbsp;</th><% end_if %>
 					<% if Can(edit) %><th width="18">&nbsp;</th><% end_if %>
