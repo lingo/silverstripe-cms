@@ -315,7 +315,18 @@ class MemberTableField extends ComplexTableField {
 			if($fieldName == 'SetPassword') {
 				$fields->push(new PasswordField($fieldName));
 			} else {
-				$fields->push(new TextField($fieldName));
+				$field = new TextField($fieldName);
+				switch ($fieldName) {
+					case 'Email':
+					case 'FirstName':
+					case 'Surname':
+						$field->addExtraClass('autocomplete');
+						break;
+
+					default:
+						break;
+				}
+				$fields->push($field);
 			}
 		}
 		if($this->group) {
